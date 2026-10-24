@@ -95,9 +95,11 @@ def read_uploaded_csv(uploaded) -> pd.DataFrame:
 
 
 def require_columns(df: pd.DataFrame, cols: list[str]) -> None:
+    """Проверяет наличие всех необходимых столбцов в DataFrame до начала анализа."""
     missing = [c for c in cols if c not in df.columns]
     if missing:
-        raise ValueError(f"Нет обязательных столбцов: {missing}")
+        missing_str = ", ".join(f"'{c}'" for c in missing)
+        raise ValueError(f"Нет обязательных столбцов: {missing_str}")
 
 
 def make_events(**cols) -> pd.DataFrame:
